@@ -1,0 +1,75 @@
+/* lora-regular - latin */
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 400;
+  src: local(""), url(/fonts/lora-v16-latin-regular.woff2) format("woff2"),
+    url(/fonts/lora-v16-latin-regular.woff) format("woff");
+}
+/* lora-600 - latin */
+@font-face {
+  font-family: "Lora";
+  font-style: normal;
+  font-weight: 600;
+  src: local(""), url(/fonts/lora-v16-latin-600.woff2) format("woff2"),
+    url(/fonts/lora-v16-latin-600.woff) format("woff");
+}
+/* lora-italic - latin */
+@font-face {
+  font-family: "Lora";
+  font-style: italic;
+  font-weight: 400;
+  src: local(""), url(/fonts/lora-v16-latin-italic.woff2) format("woff2"),
+    url(/fonts/lora-v16-latin-italic.woff) format("woff");
+}
+/* lora-600italic - latin */
+@font-face {
+  font-family: "Lora";
+  font-style: italic;
+  font-weight: 600;
+  src: local(""), url(/fonts/lora-v16-latin-600italic.woff2) format("woff2"),
+    url(/fonts/lora-v16-latin-600italic.woff) format("woff");
+}
+/* nunito-sans-regular - latin */
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 400;
+  src: local("Nunito Sans Regular"), local("NunitoSans-Regular"),
+    url(/fonts/nunito-sans-v6-latin-regular.woff2) format("woff2"),
+    url(/fonts/nunito-sans-v6-latin-regular.woff) format("woff");
+}
+/* nunito-sans-600 - latin */
+@font-face {
+  font-family: "Nunito Sans";
+  font-style: normal;
+  font-weight: 600;
+  src: local("Nunito Sans SemiBold"), local("NunitoSans-SemiBold"),
+    url(/fonts/nunito-sans-v6-latin-600.woff2) format("woff2"),
+    url(/fonts/nunito-sans-v6-latin-600.woff) format("woff");
+}
+/* cinzel-regular - latin */
+@font-face {
+  font-family: "Cinzel";
+  font-style: normal;
+  font-weight: 400;
+  src: local(""), url(/fonts/cinzel-v10-latin-regular.woff2) format("woff2"),
+    url(/fonts/cinzel-v10-latin-regular.woff) format("woff");
+}
+/* cinzel-600 - latin */
+@font-face {
+  font-family: "Cinzel";
+  font-style: normal;
+  font-weight: 600;
+  src: local(""), url(/fonts/cinzel-v10-latin-600.woff2) format("woff2"),
+    url(/fonts/cinzel-v10-latin-600.woff) format("woff");
+}
+/* cinzel-decorative-700 - latin */
+@font-face {
+  font-family: "Cinzel Decorative";
+  font-style: normal;
+  font-weight: 700;
+  src: local("Cinzel Decorative Bold"), local("CinzelDecorative-Bold"),
+    url(/fonts/cinzel-decorative-v9-latin-700.woff2) format("woff2"),
+    url(/fonts/cinzel-decorative-v9-latin-700.woff) format("woff");
+}

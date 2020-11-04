@@ -1,0 +1,9 @@
+{
+  "name": "Varrock Square",
+  "short_name": "VSquare",
+  "theme_color": "#1c1c1e",
+  "background_color": "#1c1c1e",
+  "display": "fullscreen",
+  "scope": "/",
+  "start_url": "/"
+}

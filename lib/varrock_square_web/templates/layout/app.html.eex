@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+  <meta charset="utf-8" />
+  <title>Varrock Square</title>
+  <meta name="application-name" content="Varrock Square" />
+  <meta name="description" content="Varrock Square is a social blogging platform designed for the free-to-play Old School RuneScape community." />
+  <meta name="author" content="Brandon Zimmerman" />
+  <meta name="copyright" content="Hammer Forged Code" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="#1c1c1e" />
+  <meta name="theme-color" content="#1c1c1e" />
+  <!-- TODO Add OpenGraph/Twitter metadata with appropriate values -->
+  <link rel="preload" as="style" href="<%= Routes.static_path(@conn, "/css/fonts.css") %>" />
+  <link rel="icon" href="<%= Routes.static_path(@conn, "/favicon.png") %>" />
+  <link rel="manifest" href="<%= Routes.static_path(@conn, "/manifest.json") %>" />
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/fonts.css") %>" />
+  <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
+  <script defer src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+</head>
+<body>
+  <noscript>You need JavaScript enabled in order to use this website. 😨</noscript>
+  <%= @inner_content %>
+</body>
+</html>

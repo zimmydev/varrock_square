@@ -1,0 +1,31 @@
+@import "./app-colors.scss";
+
+html {
+  background: $white;
+  color: $black;
+  font-size: 16px;
+}
+
+h1 {
+  font-size: 1.7rem;
+}
+
+h2 {
+  font-size: 1.4rem;
+}
+
+h3 {
+  font-size: 1.17rem;
+}
+
+h4 {
+  font-size: 1rem;
+}
+
+h5 {
+  font-size: 0.83rem;
+}
+
+h6 {
+  font-size: 0.7rem;
+}

@@ -1,0 +1,62 @@
+@import "./app-colors.scss";
+
+// Spinner config
+$bullet-size: 12px;
+$duration: 0.6s;
+
+.spinner {
+  display: inline-block;
+  position: relative;
+  width: 7 * $bullet-size;
+  height: 3 * $bullet-size;
+}
+.spinner div {
+  position: absolute;
+  top: $bullet-size;
+  left: $bullet-size;
+  width: $bullet-size;
+  height: $bullet-size;
+  border-radius: $bullet-size / 2;
+  background: $black;
+  animation-duration: $duration;
+  animation-timing-function: ease-out;
+  animation-iteration-count: infinite;
+}
+.spinner div:nth-child(1) {
+  animation-name: spinner-grow;
+}
+.spinner div:nth-child(2) {
+  animation-name: spinner-slide;
+}
+.spinner div:nth-child(3) {
+  left: 3 * $bullet-size;
+  animation-name: spinner-slide;
+}
+.spinner div:nth-child(4) {
+  left: 5 * $bullet-size;
+  animation-name: spinner-shrink;
+}
+@keyframes spinner-grow {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@keyframes spinner-shrink {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(0);
+  }
+}
+@keyframes spinner-slide {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(2 * $bullet-size, 0);
+  }
+}

@@ -1,0 +1,42 @@
+$primary-font-family: "Lora", Palatino, serif;
+$ui-font-family: "Nunito Sans", Helvetica, sans-serif;
+$fantasy-font-family: "Cinzel", Palatino, serif;
+$fantasy-decorative-font-family: "Cinzel Decorative", Palatino, serif;
+
+@mixin primary-font {
+  font-family: $primary-font-family;
+}
+@mixin ui-font {
+  font-family: $ui-font-family;
+}
+@mixin fantasy-font {
+  font-family: $fantasy-font-family;
+}
+@mixin fantasy-decorative-font {
+  font-family: $fantasy-decorative-font-family;
+}
+
+body {
+  @include primary-font;
+}
+
+div#logo span {
+  @include fantasy-decorative-font;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  @include fantasy-font;
+}
+
+header {
+  @include ui-font;
+}
+
+footer {
+  @include ui-font;
+}

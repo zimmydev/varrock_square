@@ -1,0 +1,60 @@
+# MacOS
+.DS_Store
+.Trash
+
+# ElixirLS
+/.elixir_ls/
+
+# The directory Mix will write compiled artifacts to.
+/_build/
+
+# If you run "mix test --cover", coverage assets end up here.
+/cover/
+
+# The directory Mix downloads your dependencies sources to.
+/deps/
+
+# Where 3rd-party dependencies like ExDoc output generated docs.
+/doc/
+
+# Ignore .fetch files in case you like to edit your project deps locally.
+/.fetch
+
+# If the VM crashes, it generates a dump, let's ignore it too.
+erl_crash.dump
+
+# Also ignore archive artifacts (built via "mix archive.build").
+*.ez
+
+# Ignore package tarball (built via "mix hex.build").
+vsq-*.tar
+
+# If NPM crashes, it generates a log, let's ignore it too.
+npm-debug.log
+
+# Node dependency directories
+node_modules/
+
+# Since we are building assets from assets/,
+# we ignore priv/static. You may want to comment
+# this depending on your deployment strategy.
+/priv/static/
+
+# Ignore package tarball (built via "mix hex.build").
+casino-*.tar
+
+# Temporary files for e.g. tests
+/tmp/
+
+# elm build files
+/assets/elm/build/
+
+# elm generated files
+/assets/elm/elm-stuff/
+
+# elm-repl generated files
+repl-temp-*
+
+# elmjutsu files
+Elmjutsu*
+
