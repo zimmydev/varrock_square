@@ -34,7 +34,6 @@ init : Flags -> ( Model, Cmd Msg )
 init { dimensions, images } =
     -- TODO Import the cache
     ( { dimensions = dimensions, images = images }
-        |> Debug.log "Initialized elm app with flags"
     , Cmd.none
     )
 

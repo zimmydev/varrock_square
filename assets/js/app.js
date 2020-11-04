@@ -31,7 +31,7 @@ const dimensions = [window.innerWidth, window.innerHeight];
 const images = {background, contentBackground, banner, logo, notFound};
 const flags = {cache, dimensions, images};
 
-console.info("Starting elm app with flags:", flags);
+// console.info("Starting elm app with flags:", flags);
 
 const app = Elm.Main.init({flags, node});
 
