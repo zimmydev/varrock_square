@@ -11,14 +11,13 @@
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="#1c1c1e" />
   <meta name="theme-color" content="#1c1c1e" />
-  <!-- TODO Add OpenGraph/Twitter metadata with appropriate values -->
   <link rel="preload" as="style" href="<%= Routes.static_path(@conn, "/css/fonts.css") %>" />
   <link rel="icon" href="<%= Routes.static_path(@conn, "/favicon.png") %>" />
   <link rel="manifest" href="<%= Routes.static_path(@conn, "/manifest.json") %>" />
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/fonts.css") %>" />
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
   <script defer src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
-</head>
+</head><% # TODO Add OpenGraph/Twitter metadata with appropriate values %>
 <body>
   <noscript>You need JavaScript enabled in order to use this website. 😨</noscript>
   <%= @inner_content %>
