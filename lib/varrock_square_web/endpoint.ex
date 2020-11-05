@@ -24,7 +24,7 @@ defmodule VarrockSquareWeb.Endpoint do
     at: "/",
     from: :varrock_square,
     gzip: false,
-    only: ~w(js css images fonts favicon.png manifest.json robots.txt)
+    only: ~w(js css images fonts favicon.png favicon.ico manifest.json robots.txt)
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

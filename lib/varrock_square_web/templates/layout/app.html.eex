@@ -12,7 +12,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="#1c1c1e" />
   <meta name="theme-color" content="#1c1c1e" />
   <link rel="preload" as="style" href="<%= Routes.static_path(@conn, "/css/fonts.css") %>" />
-  <link rel="icon" href="<%= Routes.static_path(@conn, "/favicon.png") %>" />
+  <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/favicon.png") %>" />
   <link rel="manifest" href="<%= Routes.static_path(@conn, "/manifest.json") %>" />
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/fonts.css") %>" />
   <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>" />
