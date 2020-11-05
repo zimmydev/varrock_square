@@ -3,6 +3,8 @@ defmodule VarrockSquareWeb.Router do
 
   pipeline :browser do
     plug :accepts, ["html"]
+
+    # TODO Removing templates is a step towards webpack HTML generation (affords us bundle hashing); work towards serving a static index.html!
     # plug :put_layout, false
     plug :fetch_session
     plug :fetch_flash
