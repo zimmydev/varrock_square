@@ -16,13 +16,29 @@ _Pre-alpha (under development)_
 
 ## Run a Dev Server
 
-First, make sure you have Elixir and Pheonix 1.5.6 installed, as well as NPM.
+1. Make sure you have the latest _elixir_ as well as _Pheonix 1.5.6_ installed. We will also need _npm_ to manage our static assets.
+1. Clone the repo and `cd` into it.
+1. Edit (at minimum) your [`config/dev.exs`](config/dev.exs) configuration file with the _Postgres_ username & password for your own development database.
+1. Install dependencies and setup the database:
 
-Then, simply clone the repo and in the root project directory, run:
+   1. ```bash
+      mix setup
+      ```
 
-```bash
-(cd assets && npm i) && mix phx.server
-```
+1. Run the dev server:
+
+   1. ```bash
+      mix phx.server
+      ```
+
+### Notes
+
+- This project uses _Webpack 4_ for static assets. `priv/static/` is generated and serves as Phoenix's public assets directory. It never needs to be cleaned by hand since this project's config uses `CleanWebpackPlugin` to clean the folder on each build.
+- [ ] **`TODO`** There are some kinks to work out regarding the omission of the `CopyWebpackPlugin` step(s) on _most_ subsequent incremental builds. This means that you may have to rebuild static assets entirely each time this happens. Luckily, due to Pheonix's awesome HMR, you may not even need to restart the server.
+  - Assuming a dev build: from the root project directory, run:
+  ```bash
+  (cd assets && npm run build)
+  ```
 
 ## Contributions
 
