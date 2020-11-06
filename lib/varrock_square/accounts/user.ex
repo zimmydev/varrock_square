@@ -8,9 +8,8 @@ defmodule VarrockSquare.Accounts.User do
 
   #### SCHEMA ####
 
+  @primary_key {:username, :string, []}
   schema "users" do
-    # Username can never be changed.
-    field :username, :string
     # Email can be used for password/2FA reset and login.
     field :email, :string
     # Password; only :password_hash is stored in the database.
@@ -43,8 +42,8 @@ defmodule VarrockSquare.Accounts.User do
     |> cast(params, [:rsn, :has_avatar, :bio])
     |> validate_length(:rsn, min: 2, max: 12)
     |> validate_format(:rsn, @rsn_regex)
+    |> unique_constraint(:rsn)
     |> validate_length(:bio, max: 4000)
-    |> unique_constraint([:rsn])
   end
 
   @doc """
@@ -57,7 +56,7 @@ defmodule VarrockSquare.Accounts.User do
     |> validate_required([:email, :password])
     |> validate_length(:email, min: 6, max: 320)
     |> validate_format(:email, @email_regex)
-    |> unique_constraint([:email])
+    |> unique_constraint(:email)
     |> validate_length(:password, min: 6, max: 100)
     |> validate_confirmation(:password, required: true, message: "password fields do not match")
     |> hash_password()
@@ -66,17 +65,17 @@ defmodule VarrockSquare.Accounts.User do
   @doc """
   This changeset should be used **once** when a user account is being registered. It casts and validates all of the same fields that `basic_info_changeset` and `auth_changeset` do, in addition to casting and validating the `:age` and `:username` fields. `:username` is created at registration and should never be changed.
   """
-  @username_regex ~r/^[\w]+$/ui
+  @username_regex ~r/^\w+$/ui
   def registration_changeset(user, params) do
     user
-    |> basic_info_changeset(params)
-    |> auth_changeset(params)
     |> cast(params, [:username, :age])
     |> validate_required([:username, :age])
     |> validate_length(:username, max: 20)
     |> validate_format(:username, @username_regex)
-    |> unique_constraint([:username])
-    |> validate_inclusion(:age, 13..126)
+    |> unique_constraint(:username, name: :users_pkey)
+    |> validate_number(:age, greater_than_or_equal_to: 13)
+    |> basic_info_changeset(params)
+    |> auth_changeset(params)
   end
 
   @doc """
