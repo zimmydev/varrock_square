@@ -25,7 +25,15 @@ _Pre-alpha (under development)_
       mix setup
       ```
 
-1. Run the dev server:
+1. Generate a certificate since we're configured to use HTTPS on port `4001` in dev mode:
+
+   1. ```bash
+      mix ecto.gen.cert
+      ```
+
+      - This will setup a private key and and a self-signed certificate at `priv/cert/` where [`config/dev.exs`](config/dev.exs) expects to find them.
+
+1. Finally, run the dev server:
 
    1. ```bash
       mix phx.server
