@@ -7,7 +7,7 @@ defmodule VarrockSquare.Repo.Migrations.CreateUsers do
       add :username, :string, null: false, size: 20, primary_key: true
       add :email, :string, null: false, size: 320
       add :password_hash, :string, null: false
-      add :role, :string, null: false, default: "user"
+      add :role, :string, null: false, default: "user", size: 20
       add :has_2fa, :boolean, null: false, default: false
       add :has_avatar, :boolean, null: false, default: false
       add :rsn, :string, size: 12

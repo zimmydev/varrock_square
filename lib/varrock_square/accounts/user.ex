@@ -36,10 +36,15 @@ defmodule VarrockSquare.Accounts.User do
   @doc """
   This changeset is used whenever a user needs to update their basic account information. It doesn't require any fields but accepts and validates `:rsn`, `:has_avatar` and `:bio` fields. `:rsn` must be unique.
   """
+  @email_regex ~r/^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/ui
   @rsn_regex ~r/^[\w-][\w- ]*[\w-]$/ui
   def basic_info_changeset(user, params) do
     user
-    |> cast(params, [:rsn, :has_avatar, :bio])
+    |> cast(params, [:email, :rsn, :has_avatar, :bio])
+    |> validate_required([:email])
+    |> validate_length(:email, min: 6, max: 320)
+    |> validate_format(:email, @email_regex)
+    |> unique_constraint(:email)
     |> validate_length(:rsn, min: 2, max: 12)
     |> validate_format(:rsn, @rsn_regex)
     |> unique_constraint(:rsn)
@@ -49,14 +54,10 @@ defmodule VarrockSquare.Accounts.User do
   @doc """
   This changeset is used whenever a user needs to update their email & password atomically. It requires that the `:email` and `:password` fields be set and valid, as well as requiring a matching `:password` confirmation field.
   """
-  @email_regex ~r/^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/ui
   def auth_changeset(user, params) do
     user
-    |> cast(params, [:email, :password])
-    |> validate_required([:email, :password])
-    |> validate_length(:email, min: 6, max: 320)
-    |> validate_format(:email, @email_regex)
-    |> unique_constraint(:email)
+    |> cast(params, [:password])
+    |> validate_required([:password])
     |> validate_length(:password, min: 6, max: 100)
     |> validate_confirmation(:password, required: true, message: "password fields do not match")
     |> hash_password()
@@ -73,7 +74,10 @@ defmodule VarrockSquare.Accounts.User do
     |> validate_length(:username, max: 20)
     |> validate_format(:username, @username_regex)
     |> unique_constraint(:username, name: :users_pkey)
-    |> validate_number(:age, greater_than_or_equal_to: 13)
+    |> validate_number(:age,
+      greater_than_or_equal_to: 13,
+      message: "must be be %{number} or older to register"
+    )
     |> basic_info_changeset(params)
     |> auth_changeset(params)
   end
