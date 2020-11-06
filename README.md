@@ -43,7 +43,7 @@ _Pre-alpha (under development)_
 
 - This project uses _Webpack 4_ for static assets. `priv/static/` is generated and serves as Phoenix's public assets directory. It never needs to be cleaned by hand since this project's config uses `CleanWebpackPlugin` to clean the folder on each build.
 - [ ] **`TODO`** There are some kinks to work out regarding the omission of the `CopyWebpackPlugin` step(s) on _most_ subsequent incremental builds. This means that you may have to rebuild static assets entirely each time this happens. Luckily, due to Pheonix's awesome HMR, you may not even need to restart the server.
-  - Assuming a dev build: from the root project directory, run:
+  - Assuming a dev build, you could run this command from the root project directory in another shell instance while the server is still running:
   ```bash
   (cd assets && npm run build)
   ```
