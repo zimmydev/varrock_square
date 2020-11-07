@@ -1,14 +1,17 @@
 defmodule VarrockSquare.Accounts.User do
   @moduledoc """
-  This module represents a User schema.
+  This module represents a user.
   """
   use Ecto.Schema
   import Ecto.Changeset
   alias Ecto.Changeset
 
+  alias VarrockSquare.Content.Post
+
   #### SCHEMA ####
 
-  @primary_key {:username, :string, []}
+  @primary_key {:username, :string, autogenerate: false}
+
   schema "users" do
     # Email can be used for password/2FA reset and login.
     field :email, :string
@@ -19,7 +22,7 @@ defmodule VarrockSquare.Accounts.User do
     field :age, :integer, virtual: true
     # The role describes user permissions across the site.
     field :role, :string, default: "user"
-    # TODO Two-factor authentication feature (see: shorturl.at/mAHX2).
+    # Two-factor authentication (see: shorturl.at/mAHX2).
     field :has_2fa, :boolean, default: false
     # Avatars are stored at a predictable public URL like [username].png so a flag is OK.
     field :has_avatar, :boolean, default: false
@@ -27,6 +30,8 @@ defmodule VarrockSquare.Accounts.User do
     field :rsn, :string
     # User's bio, up to 4000 characters.
     field :bio, :string
+    # A user owns posts
+    has_many :posts, Post, foreign_key: :author
     # User join & last-modified date.
     timestamps()
   end
@@ -34,20 +39,16 @@ defmodule VarrockSquare.Accounts.User do
   #### CHANGESETS ####
 
   @doc """
-  This changeset is used whenever a user needs to update their basic account information. It doesn't require any fields but accepts and validates `:rsn`, `:has_avatar` and `:bio` fields. `:rsn` must be unique.
+  This changeset is used whenever a user needs to update their basic account information. It doesn't require any fields but accepts and validates `:email`, `:has_avatar` and `:bio` fields. `:email` must be unique.
   """
-  @email_regex ~r/^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$/ui
-  @rsn_regex ~r/^[\w-][\w- ]*[\w-]$/ui
+  @email_regex ~r|^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$|ui
   def basic_info_changeset(user, params) do
     user
-    |> cast(params, [:email, :rsn, :has_avatar, :bio])
+    |> cast(params, [:email, :has_avatar, :bio])
     |> validate_required([:email])
     |> validate_length(:email, min: 6, max: 320)
     |> validate_format(:email, @email_regex)
     |> unique_constraint(:email)
-    |> validate_length(:rsn, min: 2, max: 12)
-    |> validate_format(:rsn, @rsn_regex)
-    |> unique_constraint(:rsn)
     |> validate_length(:bio, max: 4000)
   end
 
@@ -66,7 +67,8 @@ defmodule VarrockSquare.Accounts.User do
   @doc """
   This changeset should be used **once** when a user account is being registered. It casts and validates all of the same fields that `basic_info_changeset` and `auth_changeset` do, in addition to casting and validating the `:age` and `:username` fields. `:username` is created at registration and should never be changed.
   """
-  @username_regex ~r/^\w+$/ui
+  @username_regex ~r|^\w+$|ui
+  @min_age 13
   def registration_changeset(user, params) do
     user
     |> cast(params, [:username, :age])
@@ -75,8 +77,8 @@ defmodule VarrockSquare.Accounts.User do
     |> validate_format(:username, @username_regex)
     |> unique_constraint(:username, name: :users_pkey)
     |> validate_number(:age,
-      greater_than_or_equal_to: 13,
-      message: "must be be %{number} or older to register"
+      greater_than_or_equal_to: @min_age,
+      message: "must be %{number} or older to register"
     )
     |> basic_info_changeset(params)
     |> auth_changeset(params)
@@ -89,6 +91,19 @@ defmodule VarrockSquare.Accounts.User do
     user
     |> cast(params, [:has_2fa])
     |> validate_required([:has_2fa])
+  end
+
+  @doc """
+  This changeset should be used whenever a used wants to attach an RSN to their account. RSN validation with the OSRS API is outside the scope of the changeset so should be done ideally before applying this changeset to the database.
+  """
+  @rsn_regex ~r|^\w[\w- ]*\w$|ui
+  def rsn_changeset(user, params) do
+    user
+    |> cast(params, [:rsn])
+    |> validate_required([:rsn])
+    |> validate_length(:rsn, min: 2, max: 12)
+    |> validate_format(:rsn, @rsn_regex)
+    |> unique_constraint(:rsn)
   end
 
   @doc """

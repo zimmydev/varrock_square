@@ -9,7 +9,7 @@
 
 - [ ] Users
 - [ ] Sessions
-- [ ] Articles
+- [ ] Posts
 - [ ] Comments
 
 ## Users
@@ -20,7 +20,7 @@
 
 **TBD**
 
-## Articles
+## Posts
 
 **TBD**
 
