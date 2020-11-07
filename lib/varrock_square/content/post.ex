@@ -18,6 +18,9 @@ defmodule VarrockSquare.Content.Post do
     field :title, :string
     # Posts have a body which can
     field :body, :string, default: ""
+    # Posts are owned by a user
     belongs_to :user, User, foreign_key: :author, references: :username, type: :string
+    # User join & last-modified date.
+    timestamps()
   end
 end
