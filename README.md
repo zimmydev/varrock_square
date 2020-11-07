@@ -25,6 +25,8 @@ _Pre-alpha (under development)_
       mix setup
       ```
 
+      - This will also generate some dummy users and posts in the dev database.
+
 1. Generate a certificate since we're configured to use HTTPS on port `4001` in dev mode:
 
    1. ```bash
