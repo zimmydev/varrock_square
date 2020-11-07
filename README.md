@@ -16,7 +16,7 @@ _Pre-alpha (under development)_
 
 ## Run a Dev Server
 
-1. Make sure you have the latest _elixir_ as well as _Pheonix 1.5.6_ installed. We will also need _npm_ to manage our static assets.
+1. Make sure you have at least `Elixir 1.11`, `Pheonix 1.5`, and `Postgres 13` installed. We will also need _npm_ to manage our static assets.
 1. Clone the repo and `cd` into it.
 1. Edit (at minimum) your [`config/dev.exs`](config/dev.exs) configuration file with the _Postgres_ username & password for your own development database.
 1. Install dependencies and setup the database:
