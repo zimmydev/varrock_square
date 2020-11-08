@@ -47,7 +47,7 @@ defmodule VarrockSquare.Accounts.User do
     |> cast(params, [:email, :has_avatar, :bio])
     |> validate_required([:email])
     |> validate_length(:email, min: 6, max: 320)
-    |> validate_format(:email, @email_regex)
+    |> validate_format(:email, @email_regex, message: "invalid email address")
     |> unique_constraint(:email)
     |> validate_length(:bio, max: 4000)
   end
@@ -67,19 +67,15 @@ defmodule VarrockSquare.Accounts.User do
   @doc """
   This changeset should be used **once** when a user account is being registered. It casts and validates all of the same fields that `basic_info_changeset` and `auth_changeset` do, in addition to casting and validating the `:age` and `:username` fields. `:username` is created at registration and should never be changed.
   """
-  @username_regex ~r|^\w+$|ui
-  @min_age 13
+  @username_regex ~r|^\w[\w]*\w$|ui
   def registration_changeset(user, params) do
     user
     |> cast(params, [:username, :age])
     |> validate_required([:username, :age])
-    |> validate_length(:username, max: 20)
-    |> validate_format(:username, @username_regex)
+    |> validate_length(:username, min: 2, max: 20)
+    |> validate_format(:username, @username_regex, message: "invalid username")
     |> unique_constraint(:username, name: :users_pkey)
-    |> validate_number(:age,
-      greater_than_or_equal_to: @min_age,
-      message: "must be %{number} or older to register"
-    )
+    |> validate_number(:age, greater_than_or_equal_to: 13, message: "must be %{number} or older")
     |> basic_info_changeset(params)
     |> auth_changeset(params)
   end
@@ -94,7 +90,7 @@ defmodule VarrockSquare.Accounts.User do
   end
 
   @doc """
-  This changeset should be used whenever a used wants to attach an RSN to their account. RSN validation with the OSRS API is outside the scope of the changeset so should be done ideally before applying this changeset to the database.
+  This changeset should be used whenever a user wants to attach an RSN to their account. RSN validation with the OSRS API is outside the scope of the changeset so should be done ideally before applying this changeset to the database.
   """
   @rsn_regex ~r|^\w[\w- ]*\w$|ui
   def rsn_changeset(user, params) do
@@ -102,7 +98,7 @@ defmodule VarrockSquare.Accounts.User do
     |> cast(params, [:rsn])
     |> validate_required([:rsn])
     |> validate_length(:rsn, min: 2, max: 12)
-    |> validate_format(:rsn, @rsn_regex)
+    |> validate_format(:rsn, @rsn_regex, message: "invalid RSN format")
     |> unique_constraint(:rsn)
   end
 
