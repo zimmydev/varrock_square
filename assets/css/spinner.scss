@@ -45,17 +45,11 @@ $duration: 0.6s;
   }
 }
 @keyframes spinner-shrink {
-  0% {
-    transform: scale(1);
-  }
   100% {
     transform: scale(0);
   }
 }
 @keyframes spinner-slide {
-  0% {
-    transform: translate(0, 0);
-  }
   100% {
     transform: translate(2 * $bullet-size, 0);
   }
