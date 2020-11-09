@@ -42,9 +42,9 @@ defmodule VarrockSquare.Accounts.User do
   This changeset is used whenever a user needs to update their basic account information. It doesn't require any fields but accepts and validates `:email`, `:has_avatar` and `:bio` fields. `:email` must be unique.
   """
   @email_regex ~r|^[\w.%+-]+@[a-z0-9.-]+\.[a-z]{2,}$|ui
-  def basic_info_changeset(user, params) do
+  def basic_info_changeset(user, attrs) do
     user
-    |> cast(params, [:email, :has_avatar, :bio])
+    |> cast(attrs, [:email, :has_avatar, :bio])
     |> validate_required([:email])
     |> validate_length(:email, min: 6, max: 320)
     |> validate_format(:email, @email_regex, message: "invalid email address")
@@ -55,9 +55,9 @@ defmodule VarrockSquare.Accounts.User do
   @doc """
   This changeset is used whenever a user needs to update their email & password atomically. It requires that the `:email` and `:password` fields be set and valid, as well as requiring a matching `:password` confirmation field.
   """
-  def auth_changeset(user, params) do
+  def auth_changeset(user, attrs) do
     user
-    |> cast(params, [:password])
+    |> cast(attrs, [:password])
     |> validate_required([:password])
     |> validate_length(:password, min: 6, max: 100)
     |> validate_confirmation(:password, required: true, message: "password fields do not match")
@@ -68,24 +68,24 @@ defmodule VarrockSquare.Accounts.User do
   This changeset should be used **once** when a user account is being registered. It casts and validates all of the same fields that `basic_info_changeset` and `auth_changeset` do, in addition to casting and validating the `:age` and `:username` fields. `:username` is created at registration and should never be changed.
   """
   @username_regex ~r|^\w[\w]*\w$|ui
-  def registration_changeset(user, params) do
+  def registration_changeset(user, attrs) do
     user
-    |> cast(params, [:username, :age])
+    |> cast(attrs, [:username, :age])
     |> validate_required([:username, :age])
     |> validate_length(:username, min: 2, max: 20)
     |> validate_format(:username, @username_regex, message: "invalid username")
     |> unique_constraint(:username, name: :users_pkey)
     |> validate_number(:age, greater_than_or_equal_to: 13, message: "must be %{number} or older")
-    |> basic_info_changeset(params)
-    |> auth_changeset(params)
+    |> basic_info_changeset(attrs)
+    |> auth_changeset(attrs)
   end
 
   @doc """
   This changeset should be used whenever a user needs to update their 2FA settings. It only requires that the `:has_2fa` field be set to `true` or `false`.
   """
-  def two_factor_auth_changeset(user, params) do
+  def two_factor_auth_changeset(user, attrs) do
     user
-    |> cast(params, [:has_2fa])
+    |> cast(attrs, [:has_2fa])
     |> validate_required([:has_2fa])
   end
 
@@ -93,9 +93,9 @@ defmodule VarrockSquare.Accounts.User do
   This changeset should be used whenever a user wants to attach an RSN to their account. RSN validation with the OSRS API is outside the scope of the changeset so should be done ideally before applying this changeset to the database.
   """
   @rsn_regex ~r|^\w[\w- ]*\w$|ui
-  def rsn_changeset(user, params) do
+  def rsn_changeset(user, attrs) do
     user
-    |> cast(params, [:rsn])
+    |> cast(attrs, [:rsn])
     |> validate_required([:rsn])
     |> validate_length(:rsn, min: 2, max: 12)
     |> validate_format(:rsn, @rsn_regex, message: "invalid RSN format")
@@ -106,9 +106,9 @@ defmodule VarrockSquare.Accounts.User do
   This changeset should be used whenever an admin needs to update the role of some user. It only requires that the `:role` field be set to one of `:user`, `:premium_user`, `:mod` or `:admin`.
   """
   @roles ~w[user premium_user mod admin]
-  def role_changeset(user, params) do
+  def role_changeset(user, attrs) do
     user
-    |> cast(params, [:role])
+    |> cast(attrs, [:role])
     |> validate_required([:role])
     |> validate_inclusion(:role, @roles)
   end

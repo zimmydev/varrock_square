@@ -1,7 +1,7 @@
 alias VarrockSquare.Repo
-alias VarrockSquare.Accounts.User
+alias VarrockSquare.Accounts
 
-user_registration_params = [
+users_attrs = [
   %{
     username: "TrustNoBanks",
     age: 27,
@@ -25,6 +25,5 @@ user_registration_params = [
   }
 ]
 
-user_registration_params
-|> Enum.map(&User.registration_changeset(%User{}, &1))
-|> Enum.map(&Repo.insert!/1)
+# Register a bunch of users
+Enum.each(users_attrs, &Accounts.register_user/1)
