@@ -3,10 +3,8 @@ defmodule VarrockSquareWeb.Router do
 
   import Phoenix.LiveDashboard.Router
 
-  alias VarrockSquare.Accounts
-
   pipeline :browser do
-    plug :accepts, ["html"]
+    plug :accepts, ~w[html]
 
     # TODO Removing templates is a step towards webpack HTML generation (affords us bundle hashing); work towards serving a static index.html!
     # plug :put_layout, false
@@ -17,16 +15,7 @@ defmodule VarrockSquareWeb.Router do
   end
 
   pipeline :api do
-    plug :accepts, ["json"]
-
-    plug Guardian.Plug.Pipeline,
-      opt_app: :varrock_square,
-      module: Accounts.Guardian,
-      error_handler: Accounts.ErrorHandler
-
-    plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
-    plug Guardian.Plug.EnsureAuthenticated
-    plug Guardian.Plug.LoadResource
+    plug :accepts, ~w[json]
   end
 
   scope "/dashboard" do

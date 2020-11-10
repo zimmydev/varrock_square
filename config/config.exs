@@ -18,10 +18,6 @@ config :varrock_square, VarrockSquareWeb.Endpoint,
   pubsub_server: VarrockSquare.PubSub,
   live_view: [signing_salt: "nT7KcABC"]
 
-config :varrock_square, VarrockSquare.Accounts.Guardian,
-  issuer: "varrock_square",
-  verify_issuer: true
-
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",

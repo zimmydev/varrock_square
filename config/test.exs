@@ -26,8 +26,5 @@ config :varrock_square, VarrockSquareWeb.Endpoint,
   ],
   server: false
 
-config :varrock_square, VarrockSquare.Accounts.Guardian,
-  secret_key: "xhPbimJRPU0PFTq8Snx4Wo4CaXnoTdXCO0cktFzltmj3EWF6WNGGLFpWdOzVoi58"
-
 # Print only warnings and errors during test
 config :logger, level: :warn
