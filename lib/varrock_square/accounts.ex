@@ -49,4 +49,9 @@ defmodule VarrockSquare.Accounts do
         {:error, :incorrect_confirmation}
     end
   end
+
+  def authenticate_user(username, password) do
+    get_user(username)
+    |> Pbkdf2.check_pass(password)
+  end
 end
