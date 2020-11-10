@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :pbkdf2_elixir,
+  rounds: 5
+
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used

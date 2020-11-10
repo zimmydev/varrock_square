@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :pbkdf2_elixir,
+  rounds: 180_000
+
 # For production, don't forget to configure the url host
 # to something meaningful, Phoenix uses this information
 # when generating URLs.

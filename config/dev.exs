@@ -1,5 +1,8 @@
 use Mix.Config
 
+config :pbkdf2_elixir,
+  rounds: 100
+
 # Configure your database
 config :varrock_square, VarrockSquare.Repo,
   username: "zimmy",
