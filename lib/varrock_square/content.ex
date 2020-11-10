@@ -1,6 +1,5 @@
 defmodule VarrockSquare.Content do
-  alias VarrockSquare.{Repo, Accounts}
-  alias VarrockSquare.Content.Post
+  alias VarrockSquare.{Repo, Content.Post, Accounts}
 
   def create_post(user = %Accounts.User{}, attrs) do
     user

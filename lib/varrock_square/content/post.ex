@@ -6,7 +6,8 @@ defmodule VarrockSquare.Content.Post do
   import Ecto.Changeset
   alias Ecto.Changeset
 
-  alias VarrockSquare.Accounts.User
+  alias __MODULE__
+  alias VarrockSquare.Accounts
 
   #### SCHEMA ####
 
@@ -19,7 +20,7 @@ defmodule VarrockSquare.Content.Post do
     # Posts have a body which can
     field :body, :string, default: ""
     # Posts are owned by a user
-    belongs_to :user, User, foreign_key: :author, references: :username, type: :string
+    belongs_to :user, Accounts.User, foreign_key: :author, references: :username, type: :string
     # User join & last-modified date.
     timestamps()
   end
@@ -51,7 +52,7 @@ defmodule VarrockSquare.Content.Post do
 
   defp put_post_slug(changeset) do
     case changeset do
-      %Changeset{valid?: true, data: %__MODULE__{title: title}} ->
+      %Changeset{valid?: true, data: %Post{title: title}} ->
         put_change(changeset, :slug, generate_slug(title))
         # NOTE It's very unlikely slugs will collide, but we should still alert Ecto this has a unique constraint
         |> unique_constraint(:slug)

@@ -1,6 +1,5 @@
 defmodule VarrockSquare.Accounts do
-  alias VarrockSquare.Repo
-  alias VarrockSquare.Accounts.User
+  alias VarrockSquare.{Repo, Accounts.User}
 
   def create_user(attrs) do
     %User{}
