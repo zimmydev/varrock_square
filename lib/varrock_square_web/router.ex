@@ -1,6 +1,10 @@
 defmodule VarrockSquareWeb.Router do
   use VarrockSquareWeb, :router
 
+  import Phoenix.LiveDashboard.Router
+
+  alias VarrockSquare.Accounts
+
   pipeline :browser do
     plug :accepts, ["html"]
 
@@ -14,18 +18,21 @@ defmodule VarrockSquareWeb.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
-    plug :fetch_session
-    plug :protect_from_forgery
-    plug :put_secure_browser_headers
+
+    plug Guardian.Plug.Pipeline,
+      opt_app: :varrock_square,
+      module: Accounts.Guardian,
+      error_handler: Accounts.ErrorHandler
+
+    plug Guardian.Plug.VerifyHeader, claims: %{"typ" => "access"}
+    plug Guardian.Plug.EnsureAuthenticated
+    plug Guardian.Plug.LoadResource
   end
 
-  if Mix.env() in [:dev, :test] do
-    import Phoenix.LiveDashboard.Router
+  scope "/dashboard" do
+    pipe_through :browser
 
-    scope "/" do
-      pipe_through :browser
-      live_dashboard "/dashboard", metrics: VarrockSquareWeb.Telemetry
-    end
+    live_dashboard "/", metrics: VarrockSquareWeb.Telemetry
   end
 
   scope "/api", VarrockSquareWeb do
