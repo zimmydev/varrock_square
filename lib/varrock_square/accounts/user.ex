@@ -107,14 +107,9 @@ defmodule VarrockSquare.Accounts.User do
 
   #### CHANGESET PLUGINS ####
 
-  defp put_password_hash(changeset) do
-    case changeset do
-      # Only hash the password for a valid changeset
-      %Changeset{valid?: true, changes: %{password: pwd}} ->
-        put_change(changeset, :password_hash, Pbkdf2.hash_pwd_salt(pwd))
-
-      _invalid_changeset ->
-        changeset
-    end
+  defp put_password_hash(changeset = %Changeset{valid?: true, changes: %{password: pwd}}) do
+    change(changeset, password_hash: Pbkdf2.hash_pwd_salt(pwd))
   end
+
+  defp put_password_hash(changeset), do: changeset
 end

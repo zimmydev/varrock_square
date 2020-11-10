@@ -38,29 +38,23 @@ defmodule VarrockSquare.Content.Post do
 
   #### CHANGESET PLUGINS ####
 
-  defp validate_body_if_publishing(changeset) do
-    case changeset do
-      %Changeset{valid?: true, changes: %{is_published: true}} ->
-        changeset
-        |> validate_required([:body])
-        |> validate_length(:body, min: 1)
-
-      _ ->
-        changeset
-    end
+  defp validate_body_if_publishing(
+         changeset = %Changeset{valid?: true, changes: %{is_published: true}}
+       ) do
+    changeset
+    |> validate_required([:body])
+    |> validate_length(:body, min: 1)
   end
 
-  defp put_post_slug(changeset) do
-    case changeset do
-      %Changeset{valid?: true, data: %Post{title: title}} ->
-        put_change(changeset, :slug, generate_slug(title))
-        # NOTE It's very unlikely slugs will collide, but we should still alert Ecto this has a unique constraint
-        |> unique_constraint(:slug)
+  defp validate_body_if_publishing(changeset), do: changeset
 
-      _invalid_changeset ->
-        changeset
-    end
+  defp put_post_slug(changeset = %Changeset{valid?: true, data: %Post{title: title}}) do
+    change(changeset, slug: generate_slug(title))
+    # NOTE It's very unlikely slugs will collide, but do a unique constraint anyway
+    |> unique_constraint(:slug)
   end
+
+  defp put_post_slug(changeset), do: changeset
 
   #### HELPERS ####
 
