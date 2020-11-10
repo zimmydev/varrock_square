@@ -8,10 +8,12 @@ defmodule VarrockSquare.Accounts.Guardian do
   end
 
   def resource_from_claims(%{"sub" => username}) do
-    user = Accounts.get_user!(username)
-    {:ok, user}
-  rescue
-    Ecto.NoResultsError ->
-      {:error, :user_not_found}
+    case Accounts.get_user(username) do
+      nil ->
+        {:error, :user_not_found}
+
+      user ->
+        {:ok, user}
+    end
   end
 end
