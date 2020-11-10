@@ -9,6 +9,10 @@ config :varrock_square, VarrockSquare.Repo,
   show_sensitive_data_on_connection_error: true,
   pool_size: 10
 
+# config :varrock_square, VarrockSquare.Accounts.Guardian,
+#   issuer: "varrock_square",
+#   secret_key: "xhPbimJRPU0PFTq8Snx4Wo4CaXnoTdXCO0cktFzltmj3EWF6WNGGLFpWdOzVoi58"
+
 # For development, we disable any cache and enable
 # debugging and code reloading.
 #
@@ -39,7 +43,7 @@ config :varrock_square, VarrockSquareWeb.Endpoint,
 config :varrock_square, VarrockSquareWeb.Endpoint,
   live_reload: [
     patterns: [
-      ~r"priv/static/.*(js|css|png|jpeg|jpg|gif|svg)$",
+      ~r"priv/static/.*(js|css|png|jpe?g|gif|svg|woff2?)$",
       ~r"priv/gettext/.*(po)$",
       ~r"lib/varrock_square_web/(live|views)/.*(ex)$",
       ~r"lib/varrock_square_web/templates/.*(eex)$"
