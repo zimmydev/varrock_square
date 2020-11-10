@@ -16,7 +16,7 @@ users_attrs = [
   %{
     username: "TrustNoBanks",
     age: 27,
-    email: "admin@varrocksquare.net",
+    email: "admin@varrocksquare.app",
     password: "password123",
     password_confirmation: "password123",
     rsn: "TrustNoBanks",

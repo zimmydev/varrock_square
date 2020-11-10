@@ -13,7 +13,7 @@ config :pbkdf2_elixir,
 # which you should run after static files are built and
 # before starting your production server.
 config :varrock_square, VarrockSquareWeb.Endpoint,
-  url: [host: "varrocksquare.net", port: 80],
+  url: [host: "varrocksquare.app", port: 80],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production

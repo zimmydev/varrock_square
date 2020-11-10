@@ -23,9 +23,7 @@ guardian_secret_key =
     You can generate one by calling: mix guardian.gen.secret
     """
 
-config :varrock_square, VarrockSquare.Accounts.Guardian,
-  issuer: "varrock_square",
-  secret_key: guardian_secret_key
+config :varrock_square, VarrockSquare.Accounts.Guardian, secret_key: guardian_secret_key
 
 secret_key_base =
   System.get_env("SECRET_KEY_BASE") ||
