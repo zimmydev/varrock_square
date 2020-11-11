@@ -8,10 +8,11 @@ defmodule VarrockSquare.Repo.Migrations.CreatePosts do
       add :is_published, :boolean, null: false, default: false
       add :title, :string, null: false
       add :body, :text, null: false, default: ""
-      add :author, references(:users, column: :username, type: :string)
+      add :author, references(:users, column: :username, type: :string), null: false
       timestamps()
     end
 
     # NOTE The primary key (slug) is a unique index by default
+    create index(:posts, [:author])
   end
 end

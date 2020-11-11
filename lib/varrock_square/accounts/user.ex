@@ -6,7 +6,7 @@ defmodule VarrockSquare.Accounts.User do
   import Ecto.Changeset
   alias Ecto.Changeset
 
-  alias VarrockSquare.Content
+  alias VarrockSquare.{Accounts, Content}
 
   #### SCHEMA ####
 
@@ -31,8 +31,10 @@ defmodule VarrockSquare.Accounts.User do
     field :rsn, :string
     # User's bio, up to 4000 characters.
     field :bio, :string
-    # A user owns posts
+    # A user owns Posts
     has_many :posts, Content.Post, foreign_key: :author
+    # A user owns AuthTokens
+    has_many :auth_tokens, Accounts.AuthToken, foreign_key: :assignee
     # User join & last-modified date.
     timestamps()
   end

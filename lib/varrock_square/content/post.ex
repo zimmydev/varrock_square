@@ -14,6 +14,7 @@ defmodule VarrockSquare.Content.Post do
   @primary_key {:slug, :string, autogenerate: false}
 
   schema "posts" do
+    # Posts can be either published or unpublished
     field :is_published, :boolean, default: false
     # Posts have a title with a 255-character limit
     field :title, :string
@@ -21,7 +22,7 @@ defmodule VarrockSquare.Content.Post do
     field :body, :string, default: ""
     # Posts are owned by a user
     belongs_to :user, Accounts.User, foreign_key: :author, references: :username, type: :string
-    # User join & last-modified date.
+    # User join & last-modified date
     timestamps()
   end
 
