@@ -1,5 +1,8 @@
 defmodule VarrockSquare.Accounts do
-  alias VarrockSquare.{Repo, Accounts.User}
+  alias VarrockSquare.Repo
+  alias VarrockSquare.Accounts.{User, AuthToken}
+
+  #### USERS ####
 
   def create_user(attrs) do
     %User{}
@@ -53,5 +56,17 @@ defmodule VarrockSquare.Accounts do
   def authenticate_user(username, password) do
     get_user(username)
     |> Pbkdf2.check_pass(password)
+  end
+
+  #### AUTH TOKENS ####
+
+  def create_auth_token(user, token) do
+    attrs = %{token: token}
+
+    user
+    |> Ecto.build_assoc(:auth_tokens, attrs)
+    # Make sure we're still doing a changeset & validation:
+    |> AuthToken.changeset(attrs)
+    |> Repo.insert()
   end
 end
